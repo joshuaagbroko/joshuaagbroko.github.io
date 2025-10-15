@@ -22,8 +22,11 @@ That's where I come in.
 I specialize in building **AI-enhanced algorithmic trading systems** for forex and futures traders who want to:
 
 → Remove emotion from their trading decisions
+
 → Execute strategies consistently, 24/5
+
 → Scale their edge without scaling their stress
+
 → Validate that their edge is real (not just luck)
 
 Unlike cheap bot developers or off-the-shelf Expert Advisors, I bring **institutional-grade rigor** to retail-accessible pricing.
@@ -33,10 +36,15 @@ Unlike cheap bot developers or off-the-shelf Expert Advisors, I bring **institut
 Every system I build goes through:
 
 ✓ **Machine Learning Enhancement** – Custom models that go beyond basic indicators
+
 ✓ **Walk-Forward Analysis** – Testing that prevents overfitting
+
 ✓ **Out-of-Sample Validation** – Proof your strategy works on unseen data
+
 ✓ **Monte Carlo Simulation** – Understanding risk across thousands of scenarios
+
 ✓ **Transaction Cost Modeling** – Real-world conditions (spread, slippage, commissions)
+
 ✓ **Regime Analysis** – Strategies that adapt to different market conditions
 
 No black boxes. No unrealistic promises. Just systematic, data-driven strategies built for live markets.
