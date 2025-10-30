@@ -1,1 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated MT5 Trading Bot - Joshua Agbroko</title>
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary-purple: #7C3AED;
+            --dark-purple: #5B21B6;
+            --light-purple: #EDE9FE;
+            --accent-purple: #A78BFA;
+            --dark-bg: #0F0A1A;
+            --card-bg: #1A1425;
+            --text-light: #E5E7EB;
+            --text-muted: #9CA3AF;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--primary-purple);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Back Button */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-purple);
+            text-decoration: none;
+            padding: 100px 0 2rem;
+            transition: gap 0.3s;
+        }
+
+        .back-link:hover {
+            gap: 0.75rem;
+        }
+
+        /* Hero */
+        .project-hero {
+            padding: 2rem 0 4rem;
+        }
+
+        .project-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.75rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(124, 58, 237, 0.2);
+            color: var(--accent-purple);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+        }
+
+        /* Image */
+        .project-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(167, 139, 250, 0.3));
+            border-radius: 16px;
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--card-bg);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .content-section h2 {
+            color: var(--primary-purple);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .content-section ul {
+            margin: 1rem 0 1.5rem 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .content-section li {
+            margin-bottom: 0.75rem;
+            line-height: 1.8;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--dark-bg);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            color: var(--primary-purple);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+
+        .tech-item {
+            background: var(--dark-bg);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--primary-purple);
+            color: var(--primary-purple);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .cta-section h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .project-image {
+                height: 250px;
+                font-size: 4rem;
+            }
+
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="../index.html" class="logo">Joshua Agbroko</a>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#projects">Projects</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Back Link -->
+    <div class="container">
+        <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+    </div>
+
+    <!-- Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <h1 class="project-title">
+                Automated <span class="gradient-text">MT5 Trading Bot</span>
+            </h1>
+            <p class="project-subtitle">
+                ML-enhanced forex trading system achieving 2.1 profit factor with dynamic risk management
+            </p>
+
+            <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">MQL5</span>
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Forex</span>
+                <span class="tag">Backtesting</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Image -->
+    <div class="container">
+        <div class="project-image">📈</div>
+    </div>
+
+    <!-- Section 1: Overview & Results -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Overview & Results</h2>
+            <p>
+                Built a production-ready MetaTrader 5 Expert Advisor for USDCHF trading that combines machine learning predictions with technical analysis. The system automatically identifies high-probability trade setups and manages positions with dynamic risk controls.
+            </p>
+
+            <p>
+                <strong>Key Achievement:</strong> Through rigorous walk-forward validation and Monte Carlo simulation, the system demonstrated consistent performance across 3 years of out-of-sample data with a Sharpe ratio of 1.9 and maximum drawdown limited to 18%.
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">2.1</div>
+                    <div class="stat-label">Profit Factor</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">1.9</div>
+                    <div class="stat-label">Sharpe Ratio</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">58%</div>
+                    <div class="stat-label">Win Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">-18%</div>
+                    <div class="stat-label">Max Drawdown</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Technical Approach -->
+    <section class="content-section">
+        <div class="container">
+            <h2>How It Works</h2>
+            
+            <p><strong>1. ML Signal Generation</strong></p>
+            <p>
+                Trained an XGBoost classifier on 50+ engineered features including trend indicators, momentum oscillators, volatility measures, and market regime characteristics. The model predicts trade direction with 68% accuracy on unseen data.
+            </p>
+
+            <p><strong>2. Risk Management</strong></p>
+            <p>
+                Implemented dynamic position sizing based on volatility-adjusted Kelly Criterion. Position size automatically scales down during high volatility periods and increases during stable conditions. Stop losses set at 2x ATR, take profits at 3x ATR for consistent 1.5:1 risk/reward.
+            </p>
+
+            <p><strong>3. MT5 Automation</strong></p>
+            <p>
+                The Expert Advisor reads ML predictions from a CSV file updated by Python every hour, executes trades automatically, manages open positions with trailing stops, and logs all activity for performance monitoring.
+            </p>
+
+            <p><strong>Validation Process:</strong></p>
+            <ul>
+                <li>Walk-forward analysis with rolling 2-year training windows</li>
+                <li>Monte Carlo simulation (1,000 iterations) for risk assessment</li>
+                <li>Transaction cost modeling including spread, slippage, and commissions</li>
+                <li>Performance tested across bull, bear, and ranging markets</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Section 3: Tech Stack & Learnings -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Technology & Key Learnings</h2>
+          <p><strong>Tech Stack:</strong></p>
+          <div class="tech-stack">
+              <span class="tech-item">Python 3.9+</span>
+              <span class="tech-item">XGBoost</span>
+              <span class="tech-item">Streamlit</span>
+              <span class="tech-item">pandas</span>
+              <span class="tech-item">Telegram API</span>
+          </div>
+          <p><strong>What Worked:</strong></p>
+          <ul>
+              <li>Ensemble approach reduced overfitting compared to single models</li>
+              <li>Feature importance analysis revealed top 15 features drove 80% of performance</li>
+              <li>Real-time monitoring caught model drift early</li>
+          </ul>
+          <p><strong>Challenges Solved:</strong></p>
+          <ul>
+              <li>Handled missing data with forward-fill and interpolation</li>
+              <li>Optimized refresh rate to balance latency vs computational cost</li>
+              <li>Implemented model retraining pipeline to adapt to regime changes</li>
+          </ul>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="container">
+        <div class="cta-section">
+            <h2>Need a Similar System?</h2>
+            <p>
+                I can build a custom ML-enhanced trading bot tailored to your strategy and market.
+            </p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="../index.html#contact" class="btn btn-primary" style="background: white; color: var(--primary-purple);">Get In Touch</a>
+                <a href="https://github.com/joshuaagbroko" target="_blank" class="btn btn-secondary" style="border-color: white; color: white;">View on GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 4rem;"></div>
+
+</body>
+</html>
