@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automated MT5 Trading Bot - Joshua Agbroko</title>
+    <title>AI Signal Generator - Joshua Agbroko</title>
     
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -339,25 +339,25 @@
     <section class="project-hero">
         <div class="container">
             <h1 class="project-title">
-                Automated <span class="gradient-text">MT5 Trading Bot</span>
+                AI Trading <span class="gradient-text">Signal Generator</span>
             </h1>
             <p class="project-subtitle">
-                ML-enhanced forex trading system achieving 2.1 profit factor with dynamic risk management
+                Real-time ML signal system with Streamlit dashboard achieving 68% prediction accuracy
             </p>
 
             <div class="project-tags">
                 <span class="tag">Python</span>
-                <span class="tag">MQL5</span>
-                <span class="tag">Machine Learning</span>
-                <span class="tag">Forex</span>
-                <span class="tag">Backtesting</span>
+                <span class="tag">XGBoost</span>
+                <span class="tag">Streamlit</span>
+                <span class="tag">Real-time</span>
+                <span class="tag">ML</span>
             </div>
         </div>
     </section>
 
     <!-- Project Image -->
     <div class="container">
-        <div class="project-image">📈</div>
+        <div class="project-image">🧠</div>
     </div>
 
     <!-- Section 1: Overview & Results -->
@@ -365,28 +365,28 @@
         <div class="container">
             <h2>Overview & Results</h2>
             <p>
-                Built a production-ready MetaTrader 5 Expert Advisor for USDCHF trading that combines machine learning predictions with technical analysis. The system automatically identifies high-probability trade setups and manages positions with dynamic risk controls.
+                Created a machine learning-based trading signal system that analyzes 50+ technical features in real-time and generates buy/sell signals for forex markets. The system includes a Streamlit dashboard for monitoring performance and receiving alerts via Telegram.
             </p>
 
             <p>
-                <strong>Key Achievement:</strong> Through rigorous walk-forward validation and Monte Carlo simulation, the system demonstrated consistent performance across 3 years of out-of-sample data with a Sharpe ratio of 1.9 and maximum drawdown limited to 18%.
+                <strong>Key Achievement:</strong> Achieved 68% directional accuracy on out-of-sample data with Sharpe ratio of 1.8 and 12% maximum drawdown through ensemble learning and rigorous feature engineering.
             </p>
 
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-value">2.1</div>
-                    <div class="stat-label">Profit Factor</div>
+                    <div class="stat-value">68%</div>
+                    <div class="stat-label">Prediction Accuracy</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">1.9</div>
+                    <div class="stat-value">1.8</div>
                     <div class="stat-label">Sharpe Ratio</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">58%</div>
-                    <div class="stat-label">Win Rate</div>
+                    <div class="stat-value">50+ Features</div>
+                    <div class="stat-label">Features</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">-18%</div>
+                    <div class="stat-value">-12%</div>
                     <div class="stat-label">Max Drawdown</div>
                 </div>
             </div>
@@ -398,28 +398,20 @@
         <div class="container">
             <h2>How It Works</h2>
             
-            <p><strong>1. ML Signal Generation</strong></p>
+            <p><strong>1. Feature Engineering</strong></p>
             <p>
-                Trained an XGBoost classifier on 50+ engineered features including trend indicators, momentum oscillators, volatility measures, and market regime characteristics. The model predicts trade direction with 68% accuracy on unseen data.
+                Engineered 50+ features combining technical indicators (RSI, MACD, Bollinger Bands), price action patterns, volatility metrics, and market microstructure signals. Features are standardized and selected using correlation analysis.
             </p>
 
-            <p><strong>2. Risk Management</strong></p>
+            <p><strong>2. Ensemble ML Model</strong></p>
             <p>
-                Implemented dynamic position sizing based on volatility-adjusted Kelly Criterion. Position size automatically scales down during high volatility periods and increases during stable conditions. Stop losses set at 2x ATR, take profits at 3x ATR for consistent 1.5:1 risk/reward.
+                Built an ensemble combining XGBoost, Random Forest, and Logistic Regression. Each model votes on trade direction, with final signal requiring 2/3 consensus. This reduces false signals and improves reliability.
             </p>
 
-            <p><strong>3. MT5 Automation</strong></p>
+            <p><strong>3. Real-Time Dashboard</strong></p>
             <p>
-                The Expert Advisor reads ML predictions from a CSV file updated by Python every hour, executes trades automatically, manages open positions with trailing stops, and logs all activity for performance monitoring.
+                Deployed Streamlit web app that displays current signals, performance metrics, equity curves, and win/loss statistics. Integrated Telegram bot sends instant alerts when new signals are generated.
             </p>
-
-            <p><strong>Validation Process:</strong></p>
-            <ul>
-                <li>Walk-forward analysis with rolling 2-year training windows</li>
-                <li>Monte Carlo simulation (1,000 iterations) for risk assessment</li>
-                <li>Transaction cost modeling including spread, slippage, and commissions</li>
-                <li>Performance tested across bull, bear, and ranging markets</li>
-            </ul>
         </div>
     </section>
 
