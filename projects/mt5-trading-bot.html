@@ -89,20 +89,19 @@
             padding: 0 2rem;
         }
 
-        /* Breadcrumb */
-        .breadcrumb {
-            padding: 100px 0 2rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .breadcrumb a {
+        /* Back Button */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             color: var(--accent-purple);
             text-decoration: none;
+            padding: 100px 0 2rem;
+            transition: gap 0.3s;
         }
 
-        .breadcrumb a:hover {
-            text-decoration: underline;
+        .back-link:hover {
+            gap: 0.75rem;
         }
 
         /* Hero */
@@ -113,6 +112,7 @@
         .project-title {
             font-size: 3rem;
             margin-bottom: 1rem;
+            line-height: 1.2;
         }
 
         .gradient-text {
@@ -122,28 +122,10 @@
             background-clip: text;
         }
 
-        .project-meta {
-            display: flex;
-            gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .meta-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .meta-label {
+        .project-subtitle {
+            font-size: 1.25rem;
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .meta-value {
-            color: var(--accent-purple);
-            font-weight: 600;
-            font-size: 1.1rem;
+            margin-bottom: 2rem;
         }
 
         .project-tags {
@@ -162,6 +144,20 @@
             border: 1px solid rgba(124, 58, 237, 0.3);
         }
 
+        /* Image */
+        .project-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(167, 139, 250, 0.3));
+            border-radius: 16px;
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
         /* Content Sections */
         .content-section {
             background: var(--card-bg);
@@ -177,13 +173,6 @@
             margin-bottom: 1.5rem;
         }
 
-        .content-section h3 {
-            color: var(--accent-purple);
-            font-size: 1.5rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-
         .content-section p {
             color: var(--text-muted);
             margin-bottom: 1.5rem;
@@ -191,20 +180,20 @@
             line-height: 1.8;
         }
 
-        .content-section ul, .content-section ol {
-            margin: 1rem 0 1.5rem 2rem;
+        .content-section ul {
+            margin: 1rem 0 1.5rem 1.5rem;
             color: var(--text-muted);
         }
 
         .content-section li {
             margin-bottom: 0.75rem;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
         /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1.5rem;
             margin: 2rem 0;
         }
@@ -226,65 +215,34 @@
 
         .stat-label {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
-        /* Code Block */
-        .code-block {
-            background: var(--dark-bg);
-            border: 1px solid rgba(124, 58, 237, 0.3);
-            border-radius: 12px;
-            padding: 1.5rem;
-            overflow-x: auto;
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
             margin: 1.5rem 0;
         }
 
-        .code-block pre {
-            color: var(--accent-purple);
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .code-header {
-            color: var(--text-light);
-            font-weight: 600;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Image */
-        .project-image {
-            width: 100%;
-            max-width: 800px;
-            height: 400px;
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(167, 139, 250, 0.3));
-            border-radius: 12px;
-            margin: 2rem auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
+        .tech-item {
+            background: var(--dark-bg);
             border: 1px solid rgba(124, 58, 237, 0.2);
-        }
-
-        /* Highlight Box */
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(167, 139, 250, 0.1));
-            border-left: 4px solid var(--primary-purple);
-            padding: 1.5rem;
-            margin: 2rem 0;
+            padding: 0.75rem 1.5rem;
             border-radius: 8px;
-        }
-
-        .highlight-box strong {
-            color: var(--primary-purple);
+            color: var(--text-light);
+            font-size: 0.95rem;
         }
 
         /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
         .btn {
             display: inline-block;
             padding: 1rem 2rem;
@@ -292,8 +250,6 @@
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
-            margin-right: 1rem;
-            margin-top: 1rem;
         }
 
         .btn-primary {
@@ -317,26 +273,25 @@
             color: white;
         }
 
-        /* Next Project */
-        .next-project {
-            background: var(--card-bg);
-            border: 1px solid rgba(124, 58, 237, 0.2);
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
             border-radius: 16px;
-            padding: 2rem;
-            margin: 3rem 0;
+            padding: 3rem;
             text-align: center;
+            margin: 3rem 0;
         }
 
-        .next-project h3 {
-            color: var(--text-muted);
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .next-project h2 {
-            color: var(--primary-purple);
+        .cta-section h2 {
+            color: white;
             font-size: 2rem;
             margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
         }
 
         /* Responsive */
@@ -347,6 +302,11 @@
 
             .content-section {
                 padding: 2rem 1.5rem;
+            }
+
+            .project-image {
+                height: 250px;
+                font-size: 4rem;
             }
 
             nav ul {
@@ -370,11 +330,9 @@
         </div>
     </nav>
 
-    <!-- Breadcrumb -->
+    <!-- Back Link -->
     <div class="container">
-        <div class="breadcrumb">
-            <a href="../index.html">Home</a> / <a href="../index.html#projects">Projects</a> / MT5 Trading Bot
-        </div>
+        <a href="../index.html#projects" class="back-link">← Back to Projects</a>
     </div>
 
     <!-- Hero -->
@@ -383,30 +341,15 @@
             <h1 class="project-title">
                 Automated <span class="gradient-text">MT5 Trading Bot</span>
             </h1>
-            <p style="font-size: 1.25rem; color: var(--text-muted);">
-                ML-enhanced forex trading system with dynamic risk management and regime-aware position sizing
+            <p class="project-subtitle">
+                ML-enhanced forex trading system achieving 2.1 profit factor with dynamic risk management
             </p>
-
-            <div class="project-meta">
-                <div class="meta-item">
-                    <span class="meta-label">Duration</span>
-                    <span class="meta-value">6 weeks</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">Asset Class</span>
-                    <span class="meta-value">Forex (USDCHF)</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">Status</span>
-                    <span class="meta-value">Live Trading</span>
-                </div>
-            </div>
 
             <div class="project-tags">
                 <span class="tag">Python</span>
                 <span class="tag">MQL5</span>
                 <span class="tag">Machine Learning</span>
-                <span class="tag">MT5</span>
+                <span class="tag">Forex</span>
                 <span class="tag">Backtesting</span>
             </div>
         </div>
@@ -417,36 +360,17 @@
         <div class="project-image">📈</div>
     </div>
 
-    <!-- Overview -->
+    <!-- Section 1: Overview & Results -->
     <section class="content-section">
         <div class="container">
-            <h2>Project Overview</h2>
+            <h2>Overview & Results</h2>
             <p>
-                This project involved developing a production-ready MetaTrader 5 Expert Advisor for trading USDCHF with machine learning-enhanced entry signals. The system combines technical analysis with ML predictions to identify high-probability trading opportunities while maintaining strict risk controls.
+                Built a production-ready MetaTrader 5 Expert Advisor for USDCHF trading that combines machine learning predictions with technical analysis. The system automatically identifies high-probability trade setups and manages positions with dynamic risk controls.
             </p>
 
-            <div class="highlight-box">
-                <strong>Key Achievement:</strong> Achieved 2.1 profit factor and Sharpe ratio of 1.9 in 3-year out-of-sample testing, with maximum drawdown of 18%.
-            </div>
-
-            <h3>The Challenge</h3>
             <p>
-                Traditional technical indicators often generate false signals in ranging markets, leading to whipsaws and excessive trading costs. The goal was to build a system that could:
+                <strong>Key Achievement:</strong> Through rigorous walk-forward validation and Monte Carlo simulation, the system demonstrated consistent performance across 3 years of out-of-sample data with a Sharpe ratio of 1.9 and maximum drawdown limited to 18%.
             </p>
-            <ul>
-                <li>Filter out low-quality trading signals</li>
-                <li>Adapt position sizing based on market volatility</li>
-                <li>Maintain performance across different market regimes</li>
-                <li>Execute trades automatically 24/5 without manual intervention</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Performance Metrics -->
-    <section class="content-section">
-        <div class="container">
-            <h2>Performance Metrics</h2>
-            <p>Out-of-sample backtest results (2021-2024):</p>
 
             <div class="stats-grid">
                 <div class="stat-card">
@@ -465,223 +389,84 @@
                     <div class="stat-value">-18%</div>
                     <div class="stat-label">Max Drawdown</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-value">245</div>
-                    <div class="stat-label">Total Trades</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">1.8:1</div>
-                    <div class="stat-label">Risk/Reward</div>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Technical Approach -->
+    <!-- Section 2: Technical Approach -->
     <section class="content-section">
         <div class="container">
-            <h2>Technical Approach</h2>
-
-            <h3>1. Feature Engineering</h3>
-            <p>Created 50+ features combining technical indicators, price action patterns, and market microstructure:</p>
-            <ul>
-                <li>Trend indicators (EMA crossovers, ADX, Supertrend)</li>
-                <li>Momentum oscillators (RSI, Stochastic, MACD)</li>
-                <li>Volatility measures (ATR, Bollinger Bands, Standard Deviation)</li>
-                <li>Volume analysis (On-Balance Volume, Volume Profile)</li>
-                <li>Market regime features (trending vs ranging classification)</li>
-            </ul>
-
-            <h3>2. Machine Learning Model</h3>
-            <p>Implemented XGBoost classifier to predict trade direction with the following process:</p>
-
-            <div class="code-block">
-                <div class="code-header">💻 Model Training Pipeline</div>
-                <pre>
-# Feature engineering
-features = create_technical_features(df)
-X_train, X_test = train_test_split(features, test_size=0.2)
-
-# Model training
-model = XGBClassifier(
-    max_depth=5,
-    learning_rate=0.01,
-    n_estimators=500,
-    subsample=0.8,
-    colsample_bytree=0.8
-)
-
-# Walk-forward validation
-results = walk_forward_optimization(
-    model, data, 
-    train_window=252*2,  # 2 years training
-    test_window=63        # 3 months testing
-)
-
-# Export for MT5
-joblib.dump(model, 'mt5_model.pkl')</pre>
-            </div>
-
-            <h3>3. Risk Management</h3>
-            <p>Implemented dynamic position sizing based on Kelly Criterion with volatility adjustment:</p>
-            <ul>
-                <li>Base risk: 1% per trade</li>
-                <li>Volatility scaling: Reduce size in high volatility periods</li>
-                <li>Maximum exposure: 3 concurrent positions</li>
-                <li>Stop loss: 2x ATR from entry</li>
-                <li>Take profit: 3x ATR (1.5:1 risk/reward minimum)</li>
-            </ul>
-
-            <h3>4. MT5 Integration</h3>
-            <p>Built Expert Advisor that:</p>
-            <ul>
-                <li>Reads ML predictions from CSV file updated by Python script</li>
-                <li>Executes trades with proper error handling</li>
-                <li>Manages open positions with trailing stops</li>
-                <li>Logs all activity for monitoring</li>
-            </ul>
-
-            <div class="code-block">
-                <div class="code-header">💻 MQL5 Integration Snippet</div>
-                <pre>
-// Read ML prediction from file
-string prediction = ReadPredictionFile();
-
-if(prediction == "BUY" && !HasOpenPosition()) {
-   double sl = NormalizeDouble(Ask - 2*ATR, Digits);
-   double tp = NormalizeDouble(Ask + 3*ATR, Digits);
-   double lots = CalculatePositionSize(sl);
-   
-   if(OrderSend(_Symbol, OP_BUY, lots, Ask, 3, sl, tp) > 0) {
-      Print("Buy order opened successfully");
-   }
-}</pre>
-            </div>
-        </div>
-    </section>
-
-    <!-- Validation Process -->
-    <section class="content-section">
-        <div class="container">
-            <h2>Validation Process</h2>
-
-            <h3>Walk-Forward Analysis</h3>
+            <h2>How It Works</h2>
+            
+            <p><strong>1. ML Signal Generation</strong></p>
             <p>
-                Instead of a single train/test split, I used rolling window walk-forward optimization to prevent overfitting:
+                Trained an XGBoost classifier on 50+ engineered features including trend indicators, momentum oscillators, volatility measures, and market regime characteristics. The model predicts trade direction with 68% accuracy on unseen data.
             </p>
-            <ul>
-                <li>Train on 2 years of data</li>
-                <li>Test on next 3 months</li>
-                <li>Roll forward 3 months and repeat</li>
-                <li>Results consistent across all folds</li>
-            </ul>
 
-            <h3>Monte Carlo Simulation</h3>
+            <p><strong>2. Risk Management</strong></p>
             <p>
-                Ran 1,000 Monte Carlo simulations randomizing trade sequence to understand:
+                Implemented dynamic position sizing based on volatility-adjusted Kelly Criterion. Position size automatically scales down during high volatility periods and increases during stable conditions. Stop losses set at 2x ATR, take profits at 3x ATR for consistent 1.5:1 risk/reward.
             </p>
+
+            <p><strong>3. MT5 Automation</strong></p>
+            <p>
+                The Expert Advisor reads ML predictions from a CSV file updated by Python every hour, executes trades automatically, manages open positions with trailing stops, and logs all activity for performance monitoring.
+            </p>
+
+            <p><strong>Validation Process:</strong></p>
             <ul>
-                <li>Worst-case drawdown scenarios</li>
-                <li>Probability of achieving target returns</li>
-                <li>Risk of ruin (less than 0.1%)</li>
-            </ul>
-
-            <h3>Transaction Cost Modeling</h3>
-            <p>All backtests included realistic costs:</p>
-            <ul>
-                <li>Spread: 1.5 pips average</li>
-                <li>Slippage: 0.5 pips per trade</li>
-                <li>Commission: $7 per lot round-trip</li>
-            </ul>
-
-            <div class="highlight-box">
-                <strong>Result:</strong> Strategy remained profitable after accounting for all costs, with profit factor above 2.0.
-            </div>
-        </div>
-    </section>
-
-    <!-- Key Learnings -->
-    <section class="content-section">
-        <div class="container">
-            <h2>Key Learnings</h2>
-
-            <h3>What Worked</h3>
-            <ul>
-                <li><strong>Feature selection:</strong> Less is more. Top 20 features outperformed using all 50+</li>
-                <li><strong>Regime awareness:</strong> Separate models for trending vs ranging markets improved performance 30%</li>
-                <li><strong>Dynamic sizing:</strong> Volatility-adjusted position sizing reduced drawdown significantly</li>
-                <li><strong>Simple model:</strong> XGBoost with shallow trees (max_depth=5) generalized better than deep neural networks</li>
-            </ul>
-
-            <h3>What Didn't Work</h3>
-            <ul>
-                <li><strong>Complex models:</strong> LSTMs and deep networks overfitted badly on financial time series</li>
-                <li><strong>High-frequency approach:</strong> Transaction costs killed profitability with 50+ trades/week</li>
-                <li><strong>Pure technical signals:</strong> Without ML filtering, win rate dropped to 45%</li>
-            </ul>
-
-            <h3>Future Improvements</h3>
-            <ul>
-                <li>Add sentiment analysis from news/Twitter</li>
-                <li>Implement reinforcement learning for dynamic take-profit levels</li>
-                <li>Expand to multiple currency pairs with correlation filters</li>
-                <li>Build ensemble of different strategy types</li>
+                <li>Walk-forward analysis with rolling 2-year training windows</li>
+                <li>Monte Carlo simulation (1,000 iterations) for risk assessment</li>
+                <li>Transaction cost modeling including spread, slippage, and commissions</li>
+                <li>Performance tested across bull, bear, and ranging markets</li>
             </ul>
         </div>
     </section>
 
-    <!-- Tech Stack -->
+    <!-- Section 3: Tech Stack & Learnings -->
     <section class="content-section">
         <div class="container">
-            <h2>Technology Stack</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-value" style="font-size: 2rem;">🐍</div>
-                    <div class="stat-label">Python 3.9+</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" style="font-size: 2rem;">🤖</div>
-                    <div class="stat-label">XGBoost & scikit-learn</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" style="font-size: 2rem;">📊</div>
-                    <div class="stat-label">pandas & numpy</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" style="font-size: 2rem;">⚡</div>
-                    <div class="stat-label">MQL5</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" style="font-size: 2rem;">📈</div>
-                    <div class="stat-label">MetaTrader 5</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" style="font-size: 2rem;">🔄</div>
-                    <div class="stat-label">Backtrader</div>
-                </div>
+            <h2>Technology & Key Learnings</h2>
+            
+            <p><strong>Tech Stack:</strong></p>
+            <div class="tech-stack">
+                <span class="tech-item">Python 3.9+</span>
+                <span class="tech-item">XGBoost</span>
+                <span class="tech-item">scikit-learn</span>
+                <span class="tech-item">pandas & numpy</span>
+                <span class="tech-item">MQL5</span>
+                <span class="tech-item">MetaTrader 5</span>
+                <span class="tech-item">Backtrader</span>
             </div>
+
+            <p><strong>What Worked:</strong></p>
+            <ul>
+                <li>Feature selection: Top 20 features outperformed using all 50+</li>
+                <li>Regime awareness: Separate logic for trending vs ranging markets improved performance by 30%</li>
+                <li>Simple models: XGBoost with shallow trees generalized better than deep neural networks</li>
+                <li>Dynamic sizing: Volatility adjustment reduced drawdown significantly</li>
+            </ul>
+
+            <p><strong>What Didn't Work:</strong></p>
+            <ul>
+                <li>Complex LSTM networks overfitted badly on financial time series data</li>
+                <li>High-frequency approaches killed profitability due to transaction costs</li>
+                <li>Pure technical signals without ML filtering resulted in 45% win rate</li>
+            </ul>
         </div>
     </section>
 
     <!-- CTA -->
-    <section class="content-section" style="background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple)); text-align: center;">
-        <div class="container">
-            <h2 style="color: white;">Interested in a Similar System?</h2>
-            <p style="color: rgba(255, 255, 255, 0.9); font-size: 1.2rem;">
+    <div class="container">
+        <div class="cta-section">
+            <h2>Need a Similar System?</h2>
+            <p>
                 I can build a custom ML-enhanced trading bot tailored to your strategy and market.
             </p>
-            <a href="../index.html#contact" class="btn btn-primary" style="background: white; color: var(--primary-purple);">Get In Touch</a>
-            <a href="https://github.com/joshuaagbroko" class="btn btn-secondary" style="border-color: white; color: white;">View Code on GitHub</a>
-        </div>
-    </section>
-
-    <!-- Next Project -->
-    <div class="container">
-        <div class="next-project">
-            <h3>Next Project</h3>
-            <h2>AI Trading Signal Generator</h2>
-            <p style="color: var(--text-muted); margin: 1rem 0;">Custom ML models with Streamlit dashboard for real-time monitoring</p>
-            <a href="ai-signal-generator.html" class="btn btn-primary">View Project →</a>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="../index.html#contact" class="btn btn-primary" style="background: white; color: var(--primary-purple);">Get In Touch</a>
+                <a href="https://github.com/joshuaagbroko" target="_blank" class="btn btn-secondary" style="border-color: white; color: white;">View on GitHub</a>
+            </div>
         </div>
     </div>
 
