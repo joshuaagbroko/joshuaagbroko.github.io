@@ -1,1 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Arbitrage Tracker - Joshua Agbroko</title>
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary-purple: #7C3AED;
+            --dark-purple: #5B21B6;
+            --light-purple: #EDE9FE;
+            --accent-purple: #A78BFA;
+            --dark-bg: #0F0A1A;
+            --card-bg: #1A1425;
+            --text-light: #E5E7EB;
+            --text-muted: #9CA3AF;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--primary-purple);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Back Button */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-purple);
+            text-decoration: none;
+            padding: 100px 0 2rem;
+            transition: gap 0.3s;
+        }
+
+        .back-link:hover {
+            gap: 0.75rem;
+        }
+
+        /* Hero */
+        .project-hero {
+            padding: 2rem 0 4rem;
+        }
+
+        .project-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.75rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(124, 58, 237, 0.2);
+            color: var(--accent-purple);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+        }
+
+        /* Image */
+        .project-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(167, 139, 250, 0.3));
+            border-radius: 16px;
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--card-bg);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .content-section h2 {
+            color: var(--primary-purple);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .content-section ul {
+            margin: 1rem 0 1.5rem 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .content-section li {
+            margin-bottom: 0.75rem;
+            line-height: 1.8;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--dark-bg);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            color: var(--primary-purple);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+
+        .tech-item {
+            background: var(--dark-bg);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--primary-purple);
+            color: var(--primary-purple);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .cta-section h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .project-image {
+                height: 250px;
+                font-size: 4rem;
+            }
+
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="../index.html" class="logo">Joshua Agbroko</a>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#projects">Projects</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Back Link -->
+    <div class="container">
+        <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+    </div>
+
+    <!-- Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <h1 class="project-title">
+                Bitcoin <span class="gradient-text">Arbitrage tracker</span>
+            </h1>
+            <p class="project-subtitle">
+                ML-enhanced forex trading system achieving 2.1 profit factor with dynamic risk management
+            </p>
+
+            <div class="project-tags">
+                <span class="tag">Arbitrage</span>
+                <span class="tag">Websocket</span>
+                <span class="tag">Bitcoin</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Image -->
+    <div class="container">
+        <div class="project-image">📈</div>
+    </div>
+
+    <!-- Section 1: Overview & Results -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Overview & Results</h2>
+            <p>
+                Developed a real-time cryptocurrency arbitrage detection system that monitors price discrepancies across 5 major exchanges (Binance, Coinbase, Kraken, Bitfinex, Bitstamp) for Bitcoin and Ethereum. The system uses WebSocket connections to process 100+ price updates per second, calculates net profitability after fees and slippage, and identifies triangular arbitrage opportunities across trading pairs.
+            </p>
+
+            <p>
+                <strong>Key Achievement:</strong> Detected 20-25 arbitrage opportunities daily with 0.5-2% profit potential after accounting for all costs (trading fees, withdrawal fees, network costs, slippage). During high volatility periods (e.g., major news events), opportunity frequency increased to 40+ per day with profits exceeding 3%. System latency maintained under 200ms for opportunity detection and alert generation.
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">10+</div>
+                    <div class="stat-label">Daily Opportunities</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">0.5%-1.5%</div>
+                    <div class="stat-label">Profit Range</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Exchanges Monitored</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">200ms</div>
+                    <div class="stat-label">Detection Latency</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Technical Approach -->
+    <section class="content-section">
+        <div class="container">
+            <h2>How It Works</h2>
+            
+            <p><strong>1. Real-Time Price Aggregation</strong></p>
+            <p>
+                Established WebSocket connections to 3 exchanges simultaneously, receiving real-time order book updates every 100-500ms depending on exchange. Built price aggregation engine that normalizes data formats across exchanges, calculates mid-prices (average of best bid/ask), and maintains synchronized price snapshots across all venues with timestamp precision to the millisecond. Implemented connection redundancy and automatic reconnection logic to handle network issues.
+            </p>
+
+            <p><strong>2. Cross-Exchange Arbitrage Detection</strong></p>
+            <p>
+                For each price update, calculates potential profit from buying on exchange A and selling on exchange B for all 10 possible combinations (5 exchanges = 10 pairs). Profit calculation includes: buy price + maker/taker fees (0.1-0.5%), withdrawal fee (varies by exchange), blockchain network fee ($1-30 depending on congestion), estimated slippage (0.05-0.2%), and minimum transfer time (10-60 minutes depending on asset). Opportunity flagged if net profit >0.5% after all costs.
+            </p>
+
+            <p><strong>3. Triangular Arbitrage Detection</strong></p>
+            <p>
+                Within each exchange, monitors triangular opportunities across USD, BTC, ETH pairs. Example: Buy BTC with USD → Buy ETH with BTC → Sell ETH for USD. If final USD amount exceeds starting amount by >0.3% after fees, opportunity identified. This captures inefficiencies in cross-pair pricing that occur during rapid price movements.
+            </p>
+
+            <p><strong>4. Alert System & Visualization</strong></p>
+            <p>
+                Built real-time dashboard displaying: live price feeds from all exchanges with color-coded spreads, active opportunities with profit calculations and recommended execution order, historical opportunity log with outcomes, and exchange fee comparison table. Telegram bot sends instant alerts for opportunities exceeding 1% profit potential.
+            </p>
+        </div>
+    </section>
+
+    <!-- Section 3: Tech Stack & Learnings -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Technology & Key Learnings</h2>
+            
+            <p><strong>Tech Stack:</strong></p>
+            <div class="tech-stack">
+                <span class="tech-item">Python 3.9+</span>
+                <span class="tech-item">WebSockets</span>
+                <span class="tech-item">asyncio</span>
+                <span class="tech-item">ccxt (exchange library)</span>
+                <span class="tech-item">pandas</span>
+                <span class="tech-item">Streamlit</span>
+                <span class="tech-item">Telegram Bot API</span>
+            </div>
+
+            <p><strong>What Worked:</strong></p>
+            <ul>
+                    <li>Attempting automated execution—regulatory, custody, and timing risks too high for retail approach</li>
+                    <li>Including small exchanges—low liquidity meant actual execution prices differed significantly from displayed prices</li>
+                    <li>Triangular arbitrage on multiple exchanges—transfer times made opportunities disappear before completion</li>
+                    <li>Ignoring slippage—assumed perfect execution, but real execution 0.1-0.3% worse than mid-price</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="container">
+        <div class="cta-section">
+            <p>
+              <p><strong>Disclaimer:</strong></p>
+              <p style="font-size: 0.95rem; font-style: italic;">
+              This tracker identifies opportunities but does not execute trades. Actual profitability depends on many factors including execution speed, available capital, exchange account setup, and regulatory compliance. Built primarily as a learning exercise in real-time data processing and cryptocurrency market microstructure.
+          </p>
+        </div>
+    </div>
+
+    <div style="height: 4rem;"></div>
+
+</body>
+</html>
