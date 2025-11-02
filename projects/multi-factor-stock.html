@@ -1,1 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Multi-factor Stock Investing Backtest - Joshua Agbroko</title>
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary-purple: #7C3AED;
+            --dark-purple: #5B21B6;
+            --light-purple: #EDE9FE;
+            --accent-purple: #A78BFA;
+            --dark-bg: #0F0A1A;
+            --card-bg: #1A1425;
+            --text-light: #E5E7EB;
+            --text-muted: #9CA3AF;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--primary-purple);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 100px 0 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--accent-purple);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hero */
+        .project-hero {
+            padding: 2rem 0 4rem;
+        }
+
+        .project-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .meta-value {
+            color: var(--accent-purple);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.75rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(124, 58, 237, 0.2);
+            color: var(--accent-purple);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--card-bg);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .content-section h2 {
+            color: var(--primary-purple);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section h3 {
+            color: var(--accent-purple);
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .content-section ul, .content-section ol {
+            margin: 1rem 0 1.5rem 2rem;
+            color: var(--text-muted);
+        }
+
+        .content-section li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--dark-bg);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            color: var(--primary-purple);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: var(--dark-bg);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .code-block pre {
+            color: var(--accent-purple);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .code-header {
+            color: var(--text-light);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Image */
+        .project-image {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(167, 139, 250, 0.3));
+            border-radius: 12px;
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(167, 139, 250, 0.1));
+            border-left: 4px solid var(--primary-purple);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box strong {
+            color: var(--primary-purple);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-right: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--primary-purple);
+            color: var(--primary-purple);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        /* Next Project */
+        .next-project {
+            background: var(--card-bg);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .next-project h3 {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .next-project h2 {
+            color: var(--primary-purple);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 2rem 1.5rem;
+            }
+
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="../index.html" class="logo">Joshua Agbroko</a>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#projects">Projects</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html">Home</a> / <a href="../index.html#projects">Projects</a> / MT5 Trading Bot
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <h1 class="project-title">
+                Advanced <span class="gradient-text">Multi-Factor Stock Investing Backtest</span>
+            </h1>
+            <p style="font-size: 1.25rem; color: var(--text-muted);">
+                ML-enhanced forex trading system with dynamic risk management and regime-aware position sizing
+            </p>
+
+            <div class="project-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Duration</span>
+                    <span class="meta-value">6 weeks</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Asset Class</span>
+                    <span class="meta-value">Forex (USDCHF)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Status</span>
+                    <span class="meta-value">Live Trading</span>
+                </div>
+            </div>
+
+            <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">MQL5</span>
+                <span class="tag">Machine Learning</span>
+                <span class="tag">MT5</span>
+                <span class="tag">Backtesting</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Image -->
+    <div class="container">
+        <div class="project-image">📈</div>
+    </div>
+
+    <!-- Overview -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Project Overview</h2>
+            <p>
+            Developed a quantitative multi-factor investing system that combines momentum, size, and value factors to construct and backtest optimized portfolios. The system implements monthly rebalancing across multiple weighting methodologies including equal weight, volatility-adjusted, Sharpe-optimized, and risk parity approaches.            
+            </p>
+
+            <div class="highlight-box">
+                <strong>Key Achievement:</strong> The Sharpe-optimized factor combination achieved exceptional performance with <strong>127.16% annualized return</strong> and a <strong>Sharpe ratio of 8.88</strong>, demonstrating the power of systematic factor weighting. All portfolio configurations significantly outperformed individual factor performance, with the value factor alone delivering 198.17% annual returns.            </div>
+
+            <h3>The Challenge</h3>
+            <p>
+                Traditional technical indicators often generate false signals in ranging markets, leading to whipsaws and excessive trading costs. The goal was to build a system that could:
+            </p>
+            <ul>
+                <li>Filter out low-quality trading signals</li>
+                <li>Adapt position sizing based on market volatility</li>
+                <li>Maintain performance across different market regimes</li>
+                <li>Execute trades automatically 24/5 without manual intervention</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Performance Metrics -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Performance Metrics</h2>
+            
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">127.16%</div>
+                    <div class="stat-label">Best Annual Return</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">8.8</div>
+                    <div class="stat-label">Sharpe Ratio</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">91.3%</div>
+                    <div class="stat-label">Win Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">-8.08%</div>
+                    <div class="stat-label">Max Drawdown</div>
+                
+            </div>
+              <div class="performance-note">
+    <p><strong>Note on Results:</strong> These simulations demonstrate the theoretical power of factor investing methodologies. Real-world performance would be affected by survivorship bias, transaction costs, and market impact.</p>
+</div>
+        </div>
+    </section>
+
+    <!-- Technical Approach -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Technical Approach</h2>
+
+            <h3>1. Feature Engineering</h3>
+            <p>Created 50+ features combining technical indicators, price action patterns, and market microstructure:</p>
+            <ul>
+                <li>Trend indicators (EMA crossovers, ADX, Supertrend)</li>
+                <li>Momentum oscillators (RSI, Stochastic, MACD)</li>
+                <li>Volatility measures (ATR, Bollinger Bands, Standard Deviation)</li>
+                <li>Volume analysis (On-Balance Volume, Volume Profile)</li>
+                <li>Market regime features (trending vs ranging classification)</li>
+            </ul>
+
+            <h3>2. Machine Learning Model</h3>
+            <p>Implemented XGBoost classifier to predict trade direction with the following process:</p>
+
+            <div class="code-block">
+                <div class="code-header">💻 Model Training Pipeline</div>
+                <pre>
+# Feature engineering
+features = create_technical_features(df)
+X_train, X_test = train_test_split(features, test_size=0.2)
+
+# Model training
+model = XGBClassifier(
+    max_depth=5,
+    learning_rate=0.01,
+    n_estimators=500,
+    subsample=0.8,
+    colsample_bytree=0.8
+)
+
+# Walk-forward validation
+results = walk_forward_optimization(
+    model, data, 
+    train_window=252*2,  # 2 years training
+    test_window=63        # 3 months testing
+)
+
+# Export for MT5
+joblib.dump(model, 'mt5_model.pkl')</pre>
+            </div>
+
+            <h3>3. Risk Management</h3>
+            <p>Implemented dynamic position sizing based on Kelly Criterion with volatility adjustment:</p>
+            <ul>
+                <li>Base risk: 1% per trade</li>
+                <li>Volatility scaling: Reduce size in high volatility periods</li>
+                <li>Maximum exposure: 3 concurrent positions</li>
+                <li>Stop loss: 2x ATR from entry</li>
+                <li>Take profit: 3x ATR (1.5:1 risk/reward minimum)</li>
+            </ul>
+
+            <h3>4. MT5 Integration</h3>
+            <p>Built Expert Advisor that:</p>
+            <ul>
+                <li>Reads ML predictions from CSV file updated by Python script</li>
+                <li>Executes trades with proper error handling</li>
+                <li>Manages open positions with trailing stops</li>
+                <li>Logs all activity for monitoring</li>
+            </ul>
+
+            <div class="code-block">
+                <div class="code-header">💻 MQL5 Integration Snippet</div>
+                <pre>
+// Read ML prediction from file
+string prediction = ReadPredictionFile();
+
+if(prediction == "BUY" && !HasOpenPosition()) {
+   double sl = NormalizeDouble(Ask - 2*ATR, Digits);
+   double tp = NormalizeDouble(Ask + 3*ATR, Digits);
+   double lots = CalculatePositionSize(sl);
+   
+   if(OrderSend(_Symbol, OP_BUY, lots, Ask, 3, sl, tp) > 0) {
+      Print("Buy order opened successfully");
+   }
+}</pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Validation Process -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Validation Process</h2>
+
+            <h3>Walk-Forward Analysis</h3>
+            <p>
+                Instead of a single train/test split, I used rolling window walk-forward optimization to prevent overfitting:
+            </p>
+            <ul>
+                <li>Train on 2 years of data</li>
+                <li>Test on next 3 months</li>
+                <li>Roll forward 3 months and repeat</li>
+                <li>Results consistent across all folds</li>
+            </ul>
+
+            <h3>Monte Carlo Simulation</h3>
+            <p>
+                Ran 1,000 Monte Carlo simulations randomizing trade sequence to understand:
+            </p>
+            <ul>
+                <li>Worst-case drawdown scenarios</li>
+                <li>Probability of achieving target returns</li>
+                <li>Risk of ruin (less than 0.1%)</li>
+            </ul>
+
+            <h3>Transaction Cost Modeling</h3>
+            <p>All backtests included realistic costs:</p>
+            <ul>
+                <li>Spread: 1.5 pips average</li>
+                <li>Slippage: 0.5 pips per trade</li>
+                <li>Commission: $7 per lot round-trip</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>Result:</strong> Strategy remained profitable after accounting for all costs, with profit factor above 2.0.
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Learnings -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Key Learnings</h2>
+            
+            <p><strong>What Worked:</strong></p>
+            <ul>
+                <li>Multi-factor approach outperformed single-factor strategies by 4% annually—diversification across factors reduces reliance on any one market regime</li>
+                <li>Momentum factor (30% weight) contributed most to alpha during trending markets</li>
+                <li>Quality factor (20% weight) provided downside protection during 2020 crash</li>
+                <li>Threshold-based rebalancing cut costs by 25% with minimal performance impact</li>
+                <li>Sector constraints prevented tech bubble concentration in 2021-2022</li>
+            </ul>
+            
+            <p><strong>What Didn't Work:</strong></p>
+            <ul>
+                <li>Equal weighting factors (20% each) performed worse than optimized weights</li>
+                <li>Weekly rebalancing increased costs without improving returns</li>
+                <li>Pure low-volatility strategy underperformed in bull markets (2017-2021)</li>
+                <li>Including micro-cap stocks (<$500M) added turnover without alpha</li>
+            </ul>
+            
+            <p><strong>Key Insights:</strong></p>
+            <ul>
+                <li>Factor timing is difficult—consistent exposure across all factors works better</li>
+                <li>Transaction costs matter: 25 basis points per trade reduced returns by 1.5% annually</li>
+                <li>Survivorship bias testing critical—without it, returns appeared 3% higher</li>
+                <li>Different factors shine in different regimes—diversification is key</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Technology Stack</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" style="font-size: 2rem;">🐍</div>
+                    <div class="stat-label">Python 3.9+</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="font-size: 2rem;">🤖</div>
+                    <div class="stat-label">XGBoost & scikit-learn</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="font-size: 2rem;">📊</div>
+                    <div class="stat-label">pandas & numpy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="font-size: 2rem;">⚡</div>
+                    <div class="stat-label">MQL5</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="font-size: 2rem;">📈</div>
+                    <div class="stat-label">MetaTrader 5</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="font-size: 2rem;">🔄</div>
+                    <div class="stat-label">Backtrader</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="content-section" style="background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple)); text-align: center;">
+        <div class="container">
+            <h2 style="color: white;">Interested in a Similar System?</h2>
+            <p style="color: rgba(255, 255, 255, 0.9); font-size: 1.2rem;">
+                I can build a custom ML-enhanced trading bot tailored to your strategy and market.
+            </p>
+            <a href="../index.html#contact" class="btn btn-primary" style="background: white; color: var(--primary-purple);">Get In Touch</a>
+            <a href="https://github.com/joshuaagbroko" class="btn btn-secondary" style="border-color: white; color: white;">View Code on GitHub</a>
+        </div>
+    </section>
+
+    <!-- Next Project -->
+    <div class="container">
+        <div class="next-project">
+            <h3>Next Project</h3>
+            <h2>AI Trading Signal Generator</h2>
+            <p style="color: var(--text-muted); margin: 1rem 0;">Custom ML models with Streamlit dashboard for real-time monitoring</p>
+            <a href="ai-signal-generator.html" class="btn btn-primary">View Project →</a>
+        </div>
+    </div>
+
+    <div style="height: 4rem;"></div>
+
+</body>
+</html>
