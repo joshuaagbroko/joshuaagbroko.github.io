@@ -342,7 +342,7 @@
                 Bitcoin <span class="gradient-text">Arbitrage tracker</span>
             </h1>
             <p class="project-subtitle">
-                ML-enhanced forex trading system achieving 2.1 profit factor with dynamic risk management
+                Real-time cross-exchange arbitrage detector monitoring 3 exchanges with Telegram alert monitoring
             </p>
 
             <div class="project-tags">
@@ -363,11 +363,11 @@
         <div class="container">
             <h2>Overview & Results</h2>
             <p>
-                Developed a real-time cryptocurrency arbitrage detection system that monitors price discrepancies across 5 major exchanges (Binance, Coinbase, Kraken, Bitfinex, Bitstamp) for Bitcoin and Ethereum. The system uses WebSocket connections to process 100+ price updates per second, calculates net profitability after fees and slippage, and identifies triangular arbitrage opportunities across trading pairs.
+                Developed a real-time cryptocurrency arbitrage detection system that monitors price discrepancies across 3 major exchanges (Binance, Coinbase, Kraken) for Bitcoin. The system uses WebSocket connections to process 100+ price updates per second, calculates net profitability after fees and slippage, and identifies triangular arbitrage opportunities across trading pairs.
             </p>
 
             <p>
-                <strong>Key Achievement:</strong> Detected 20-25 arbitrage opportunities daily with 0.5-2% profit potential after accounting for all costs (trading fees, withdrawal fees, network costs, slippage). During high volatility periods (e.g., major news events), opportunity frequency increased to 40+ per day with profits exceeding 3%. System latency maintained under 200ms for opportunity detection and alert generation.
+                <strong>Key Achievement:</strong> Detected 10-15 arbitrage opportunities daily with 0.5-2% profit potential after accounting for all costs (trading fees, withdrawal fees, network costs, slippage). During high volatility periods (e.g., major news events), opportunity frequency increased to 40+ per day with profits exceeding 3%. System latency maintained under 200ms for opportunity detection and alert generation.
             </p>
 
             <div class="stats-grid">
@@ -384,7 +384,7 @@
                     <div class="stat-label">Exchanges Monitored</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">200ms</div>
+                    <div class="stat-value">300ms</div>
                     <div class="stat-label">Detection Latency</div>
                 </div>
             </div>
@@ -408,12 +408,12 @@
 
             <p><strong>3. Triangular Arbitrage Detection</strong></p>
             <p>
-                Within each exchange, monitors triangular opportunities across USD, BTC, ETH pairs. Example: Buy BTC with USD → Buy ETH with BTC → Sell ETH for USD. If final USD amount exceeds starting amount by >0.3% after fees, opportunity identified. This captures inefficiencies in cross-pair pricing that occur during rapid price movements.
+                Within each exchange, monitors triangular opportunities across USD & BTC pairs. If final USD amount exceeds starting amount by >0.3% after fees, opportunity identified. This captures inefficiencies in cross-pair pricing that occur during rapid price movements.
             </p>
 
-            <p><strong>4. Alert System & Visualization</strong></p>
+            <p><strong>4. Alert System</strong></p>
             <p>
-                Built real-time dashboard displaying: live price feeds from all exchanges with color-coded spreads, active opportunities with profit calculations and recommended execution order, historical opportunity log with outcomes, and exchange fee comparison table. Telegram bot sends instant alerts for opportunities exceeding 1% profit potential.
+                Telegram bot sends instant alerts for opportunities exceeding 1% profit potential.
             </p>
         </div>
     </section>
